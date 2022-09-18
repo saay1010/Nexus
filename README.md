@@ -1,6 +1,5 @@
 # Nexus
-Interactive fullstack web application for student collaboration; built on Node.js and React.
-
+Final project from Ryan Taylor, Aaryaman Bhute
 ## Requirements
 > fill in requirements as needed here.
 
