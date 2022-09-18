@@ -1,0 +1,721 @@
+$padding: 1rem;
+$padding-dbl: 2 * $padding;
+$padding-hlf: 0.5 * $padding;
+
+$border-r: 20px;
+$border-r2: 0.5 * $border-r;
+
+$color-1: #5755cc;
+$color-2: #b1b0e8;
+$color-3: #2d2b91;
+$color-4: #1b1a56;
+$color-5: #eeeeee;
+$color-6: hsl(241, 54%, 65%);
+$color-7: #15c71a;
+$color-8: #575667;
+
+$color-italic: lightgray;
+$color-good-1: rgb(45, 125, 45);
+$color-good-2: rgb(96, 217, 96);
+$color-bad-1: rgb(183, 62, 62);
+$color-bad-2: rgb(255, 155, 155);
+
+$nav-height: 100px;
+
+$shadow: #3131319c;
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400&display=swap');
+
+* {
+    font-family: "Nunito", sans-serif;
+}
+@mixin theme-color() {
+    color: white;
+    background: $color-1;
+}
+@mixin bw() {
+    color: black;
+    background: white;
+}
+@mixin border($width) {
+    border: solid $width black;
+}
+//
+@mixin flex-center() {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+@mixin module() {
+    display: flex;
+    border-radius: $border-r;
+    padding: $border-r;
+    background: white;
+    @include border(1px);
+}
+@mixin button() {
+    @include theme-color;
+    height: 100%;
+    border: none;
+    width: 100%;
+    font-weight: 200;
+    &:hover {
+        background: $color-3;
+        box-shadow: inset 0px -4px 0px white;
+        font-weight: 400;
+    }
+    &:active {
+        background: $color-4;
+    }
+    &.on {
+        box-shadow: inset 0px -10px 0px $color-6;
+    }
+    transition: background 0.5s ease, box-shadow 0.5s ease, font-weight 0.2s ease;
+}
+
+body {
+    margin: 0 !important;
+}
+
+h1, h2, h3 {
+    margin-block-end: 0;
+    margin-block-start: 0;
+}
+
+//////////////////
+
+.nav {
+    @include theme-color;
+
+    width: 100%;
+    height: $nav-height;
+    display: flex;
+    flex-direction: row;
+    position: sticky;
+    top: 0px;
+    box-shadow: 0px 0px 15px $shadow;
+    overflow-x: hidden;
+
+    .left {
+        width: 20%;
+        min-width: 175px;
+        height: 100%;
+        align-self: flex-start;
+        * {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .right {
+        width: 16%;
+        height: 100%;
+        display: grid;
+        .btn {
+	    width: 90%;
+            @include button;
+            font-size: 160%;
+	}
+	
+    }
+    .mid {
+        width: 80%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        .btn {
+            @include button;
+            font-size: 160%;
+        }
+    }
+}
+
+//////////////////
+
+.logo {
+    width: 100%;
+    height: 100%;
+    .image {
+        background: url('../public/logo.png');
+        background-size: 150px;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}
+
+//////////////////
+
+.page {
+    height: calc(100% - $nav-height - $padding-dbl - $padding-dbl);
+    padding: $padding-dbl;
+    overflow-x: hidden;
+}
+.main {
+    height: 100vh;
+    width: 100vw;
+}
+
+.grid {
+    display: grid;
+    &.top {
+        grid-template-columns: 3fr 8fr 2fr;
+        grid-gap: $padding-dbl;
+        height: 100%;
+        max-height: 100%;
+        overflow: hidden;
+    }
+    &.posts {
+        grid-template-columns: 1fr 8fr 4fr;
+        grid-gap: $padding-dbl;
+        height: 100%;
+        max-height: 100%;
+        overflow: hidden;
+    }
+    &.post {
+        grid-template-columns: 8fr 4fr;
+        grid-gap: $padding-dbl;
+        height: 100%;
+        max-height: 100%;
+        overflow: hidden;
+    }
+    &.poster {
+        grid-template-columns: 10fr;
+        grid-gap: $padding-dbl;
+        height: 100%;
+        max-height: 100%;
+        overflow: hidden;
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: $padding;
+    overflow-y: scroll;
+    max-height: 80vh;
+    &.in {
+        background: $color-5;
+        box-shadow: inset 0px 0px 2px $shadow;
+        outline: solid 1px $shadow;
+    }
+    &.border {
+        border: solid 1px $color-5;
+    }
+    &.scroll {
+        overflow-y: scroll;
+        height: 80vh;
+    }
+}
+.module_wrapper {
+    height: 100%;
+    overflow-y: hidden;
+}
+
+.module {
+    @include module;
+    margin-bottom: $padding;
+    flex-direction: column;
+    user-select: none;
+    .title {
+        width: 100%;
+        height: 25%;
+        font-size: 150%;
+        cursor: pointer;
+    }
+    .body {
+        width: 100%;
+        height: 75%;
+    }
+    .info {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        margin-block-start: 0;
+        margin-block-end: -1 * $padding;
+        .fingerprint {
+            text-align: right;
+            font-style: italic;
+            color: $color-6;
+            width: 75%;
+        }
+        .score {
+            color: $color-1;
+            font-weight: bolder;
+            font-size: 110%;
+            text-align: left;
+            width: 25%;
+        }
+    }
+}
+.infostr {
+    color: $color-italic;
+    
+}
+.votes {
+    button {
+        padding: $padding-hlf;
+        margin: $padding;
+        margin-left: 0;
+        font-size: larger;
+        width: 5%;
+        background: rgb(220, 220, 220);
+        &.upvoted {
+            background: $color-1;
+            color: white;
+        }
+        &.downvoted {
+            background: $color-bad-1;
+            color: white;
+        }
+        color: black;
+        border: none;
+        border-radius: $border-r2;
+        &.grayed {
+            background: $color-8;
+            color: $color-5;
+        }
+    }
+}
+
+//////////////////
+
+.search {
+    .bar {
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+        align-items: left;
+        input {
+            width: 100%;
+            height: 90%;
+            font-size: 120%;
+            border-radius: $border-r;
+            padding: 0 $border-r;
+            border: solid 1px black;
+        }
+    }
+    .sort {
+        margin-top: $padding;
+        height: 200%;
+        select {
+            padding: $padding-hlf;
+            margin-left: $padding-hlf;
+        }
+    }
+}
+
+//////////////////
+
+.profile {
+    height: 100%;
+    &.small {
+        display: flex;
+        button {
+            @include button;
+            background: $color-3;
+            border: none;
+            width: 100%;
+            display: flex;
+            padding: $padding $padding-dbl;
+            * {
+                align-self: center;
+                justify-self: center;
+                align-items: center;
+                justify-content: center;
+            }
+            img {
+                max-height: 60px;
+                max-width: 60px;
+                height: auto;
+                width: auto;
+                border-radius: 60px;
+                box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.8);
+            }
+            .username {
+                display: flex;
+                font-size: 150%;
+                height: 100%;
+                width: 100%;
+                padding-left: $padding-hlf;
+            }
+        }
+    }
+}
+
+//////////////////
+
+.postform {
+    display: flexbox;
+    flex-direction: row;
+    width: 60%;
+    height: 100%;
+    .title {
+        width: 40%;
+        height: 5%;
+        margin-bottom: calc(3 * $padding);
+    }
+    .body {
+        width: 100%;
+        margin-bottom: calc(1.5 * $padding);
+        textarea {
+            padding: $padding-hlf;
+            font-size: larger;
+            max-width: 100%;
+            width: 40%;
+            min-width: 40%;
+            min-height: 100px;
+        }
+    }
+    .submit {
+        width: 20%;
+        font-size: medium;
+    }
+    input {
+        padding: $padding-hlf;
+        font-size: larger;
+        width: 100%;
+    }
+}
+
+.message {
+    padding: $padding-hlf;
+    margin: $padding-hlf;
+    margin-left: 0;
+    &.confirmation {
+        color: $color-good-1;
+        background: $color-good-2;
+        border: solid 1px $color-good-1;
+        .postlink {
+            text-decoration: underline;
+            color: $color-1;
+        }
+    }
+    &.error {
+        color: $color-bad-1;
+        background: $color-bad-2;
+        border: solid 1px $color-bad-1;
+    }
+}
+
+.postwrapper{
+    display: flex;
+    height: 34%;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+    column-gap: 50px;
+}
+
+.postboard{
+    display: flex;
+    justify-content: center;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    height: 200%;
+    width: 40%;
+}
+
+.postboard ul{
+    list-style-type: None;
+    padding-left: 0%;
+    min-width: 30%;
+    justify-content: center;
+    background-color: $color-1;
+    border-radius: 30px;
+    max-height: 85%;
+    overflow-y: scroll;
+}
+.postboard ul li{
+    color: white;
+}
+
+.postentry{
+    display: flex;
+    background-color: $color-2;
+    padding: 1%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    border-radius: 30px;
+}
+
+.postentry img{
+    width: 30%;
+    height: 40%;
+    border-radius: 50%;
+    border: 2px solid black;
+    margin: 2px;
+}
+
+.postentry .description .name{
+    width: 100%;
+    color: black;
+    font-weight: 900;
+    font-size: 2em;
+    padding: 0;
+    margin: 0;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.postentry .description{
+    margin-left: 2%;
+    height: fit-content;
+    padding: 0;
+    width: 65%;
+}
+
+.posttitle{
+    width: 100%;
+    text-align: center;
+    height: fit-content;
+}
+
+.innerratingbar{
+    height: 100%;
+    background-color: $color-7;
+    z-index: 5;
+    border-radius: 5px;
+}
+
+.ratingbar{
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 20%;
+    justify-content: center;
+    column-gap: 10px;
+    padding-top: 5%;
+}
+
+.ratingbarwrapper{
+    width: 100%;
+    background-color: #1b1a56;
+    border-radius: 5px;
+}
+
+.ratingbar p{
+    margin: 0;
+    padding: 0;
+    font-weight: 900;
+    font-size: 1.5em;
+    color: black;
+}
+
+.ratingvalue{
+    width: 100%;
+    text-align: center;
+    color: black;
+    font-weight: 900;
+    font-size: 1em;
+}
+
+.postpagetitle{
+    font-size: 2.5em;
+    width: 100%;
+    text-align: center;
+    font-weight: 900;
+    padding: 10px;
+}
+
+
+/////////////////
+
+////////////////////////
+
+.leaderwrapper{
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+    column-gap: 50px;
+}
+
+.leaderboard{
+    display: flex;
+    justify-content: center;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 40%;
+}
+
+.leaderboard ul{
+    list-style-type: None;
+    padding-left: 0%;
+    min-width: 30%;
+    justify-content: center;
+    background-color: $color-1;
+    border-radius: 30px;
+    max-height: 85%;
+    overflow-y: scroll;
+}
+.leaderboard ul li{
+    color: white;
+}
+
+.leaderentry{
+    display: flex;
+    background-color: $color-2;
+    padding: 1%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    border-radius: 30px;
+}
+
+.leaderentry img{
+    width: 30%;
+    height: auto;
+    border-radius: 50%;
+    border: 2px solid black;
+    margin: 2px;
+}
+
+.leaderentry .description .name{
+    width: 100%;
+    color: black;
+    font-weight: 900;
+    font-size: 2em;
+    padding: 0;
+    margin: 0;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.leaderentry .description{
+    margin-left: 2%;
+    height: fit-content;
+    padding: 0;
+    width: 65%;
+}
+
+.leadertitle{
+    width: 100%;
+    text-align: center;
+    height: fit-content;
+}
+
+.innerratingbar{
+    height: 100%;
+    background-color: $color-7;
+    z-index: 5;
+    border-radius: 5px;
+}
+
+.ratingbar{
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 20%;
+    justify-content: center;
+    column-gap: 10px;
+    padding-top: 5%;
+}
+
+.ratingbarwrapper{
+    width: 100%;
+    background-color: #1b1a56;
+    border-radius: 5px;
+}
+
+.ratingbar p{
+    margin: 0;
+    padding: 0;
+    font-weight: 900;
+    font-size: 1.5em;
+    color: black;
+}
+
+.ratingvalue{
+    width: 100%;
+    text-align: center;
+    color: black;
+    font-weight: 900;
+    font-size: 1.5em;
+}
+
+.leaderpagetitle{
+    font-size: 2.5em;
+    width: 100%;
+    text-align: center;
+    font-weight: 900;
+    padding: 10px;
+}
+
+
+/////////////////
+//////////////////
+
+.authpage {
+
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+
+    .logo {
+        width: 15%;
+        height: 15%;
+        align-self: center;
+        .image {
+            width: 100%;
+            height: 100%;
+            background: url('../public/logo_2.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    }
+
+    .chip {
+        width: 25%;
+        min-height: 30%;
+        &.tall {
+            min-height: 35%;
+        }
+        transition: min-height 0.5s ease;
+        align-self: center;
+        background: $color-5;
+        box-shadow: inset 0px 0px 2px $shadow;
+        align-items: center;
+        padding: $padding-dbl;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .header {
+            text-align: center;
+        }
+        label {
+            font-size: 1.3rem;
+        }
+        input {
+            padding: $padding;
+            font-size: larger;
+            width: 50%;
+            height: 8%;
+            margin-bottom: $padding;
+            border-radius: $border-r;
+            border: solid 1px black;
+        }
+        button {
+            padding: $padding-hlf;
+            margin-bottom: $padding;
+            font-size: larger;
+            width: 50%;
+            height: 15%;
+            background: $color-1;
+            color: $color-5;
+            border: none;
+            &.grayed {
+                background: $color-8;
+                color: $color-5;
+            }
+        }
+    }
+
+}
